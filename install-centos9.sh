@@ -20,7 +20,8 @@ install_3proxy() {
   # mkdir -p /etc/3proxy/{bin,logs,stat}
   #cp src/3proxy /usr/local/etc/3proxy/bin/
   #mkdir /bin/3proxy
-  #yes | cp -rf ./src/* /bin/3proxy
+  #yes | cp -rf ./src/* /etc/3proxy/
+  yes | cp -rf ./scripts/* /etc/3proxy/
   cp ./scripts/init.d/3proxy.sh /bin/3proxy
   chmod +x /bin/3proxy
   chkconfig 3proxy on
