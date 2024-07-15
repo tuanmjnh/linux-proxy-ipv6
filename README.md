@@ -15,6 +15,8 @@ yum update -y
 
 bash <(curl -s "https://raw.githubusercontent.com/tuanmjnh/linux-proxy-ipv6/main/install-centos9.sh")
 
+bash <(curl -s "https://raw.githubusercontent.com/tuanmjnh/linux-proxy-ipv6/main/install-centos7.sh")
+
 dien sl proxy muon tao -> enter
 
 cop link de tai proxy ve
