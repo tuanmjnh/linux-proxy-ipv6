@@ -17,13 +17,15 @@ install_3proxy() {
   wget -qO- $URL | bsdtar -xvf-
   cd 3proxy-0.9.4
   make -f Makefile.Linux
-  # mkdir -p /etc/3proxy/{bin,logs,stat}
-  #cp src/3proxy /usr/local/etc/3proxy/bin/
+  mkdir -p /var/log/3proxy
   mkdir /etc/3proxy
   #yes | cp -rf ./src/* /etc/3proxy/
   yes | cp -rf ./scripts/* /etc/3proxy/
   yes | cp -rf ./src/* /etc/3proxy/
+  yes | cp -rf ./bin/3proxy /usr/bin/
   cp ./scripts/init.d/3proxy.sh /bin/3proxy
+  touch /etc/3proxy/3proxy.cfg
+  #chmod 600 /etc/3proxy/3proxy.cfg
   chmod +x /bin/3proxy
   chkconfig /bin/3proxy on
   cd $WORKDIR
@@ -131,7 +133,7 @@ cat >>/etc/rc.local <<EOF
 bash ${WORKDIR}/boot_iptables.sh
 bash ${WORKDIR}/boot_ifconfig.sh
 ulimit -n 10048
-service 3proxy start
+/bin/3proxy start
 EOF
 
 bash /etc/rc.local
