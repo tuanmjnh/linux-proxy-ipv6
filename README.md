@@ -22,3 +22,6 @@ dien sl proxy muon tao -> enter
 cop link de tai proxy ve
 
 cop pass giai nen file proxy vua tai ve
+
+ps aux | grep 3proxy
+netstat -tuplan | grep 3proxy
