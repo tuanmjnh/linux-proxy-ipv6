@@ -17,17 +17,18 @@ install_3proxy() {
   wget -qO- $URL | bsdtar -xvf-
   cd 3proxy-0.9.4
   make -f Makefile.Linux
-  mkdir -p /usr/local/etc/3proxy/{bin,logs,stat}
-  cp src/3proxy /usr/local/etc/3proxy/bin/
-  cp ./scripts/init.d/3proxy.sh /etc/init.d/3proxy.sh
-  chmod +x /etc/init.d/3proxy.sh
-  chkconfig 3proxy.sh on
+  mkdir -p /etc/3proxy/{bin,logs,stat}
+  #cp src/3proxy /usr/local/etc/3proxy/bin/
+  yes | cp -rf ./src/* /etc/3proxy/bin/
+  cp ./scripts/init.d/3proxy.sh /etc/init.d/3proxy
+  chmod +x /etc/init.d/3proxy
+  chkconfig 3proxy on
   cd $WORKDIR
 }
 gen_3proxy() {
   cat <<EOF
 daemon
-maxconn 1
+maxconn 100
 nscache 65536
 timeouts 1 5 30 60 180 1800 15 60
 setgid 65535
@@ -110,7 +111,7 @@ IP6=$(curl -6 -s icanhazip.com | cut -f1-4 -d':')
 
 echo "Internal ip = ${IP4}. Exteranl sub for ip6 = ${IP6}"
 
-echo "How many proxy do you want to create? Example 500"
+echo "How many proxy do you want to create? Example 50 (max: 100)"
 read COUNT
 
 FIRST_PORT=10000
@@ -121,7 +122,7 @@ gen_iptables >$WORKDIR/boot_iptables.sh
 gen_ifconfig >$WORKDIR/boot_ifconfig.sh
 chmod +x boot_*.sh /etc/rc.local
 
-gen_3proxy >/usr/local/etc/3proxy/3proxy.cfg
+gen_3proxy >/etc/3proxy/3proxy.cfg
 
 cat >>/etc/rc.local <<EOF
 bash ${WORKDIR}/boot_iptables.sh
