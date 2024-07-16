@@ -25,3 +25,7 @@ cop pass giai nen file proxy vua tai ve
 
 ps aux | grep 3proxy
 netstat -tuplan | grep 3proxy
+
+
+#squid
+bash <(curl -s "https://raw.githubusercontent.com/tuanmjnh/linux-proxy-ipv6/main/squid.sh")

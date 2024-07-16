@@ -28,6 +28,9 @@ install_3proxy() {
   #chmod 600 /etc/3proxy/3proxy.cfg
   chmod +x /bin/3proxy
   chkconfig /bin/3proxy on
+  firewall-cmd --zone=public --add-port=10000/tcp
+  firewall-cmd --zone=public --add-port=10001/tcp
+  firewall-cmd –reload
   cd $WORKDIR
 }
 gen_3proxy() {
